@@ -12,6 +12,14 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   String currSearchValue = '';
 
+  void showAbout(BuildContext context) {
+    showAboutDialog(
+        context: context,
+        applicationName: 'Anisong',
+        applicationVersion: '0.1.0',
+        applicationLegalese: '(c) 2025, alberterc');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,19 +28,26 @@ class HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20.0,),
-              SearchTextField(onContentChanged: (String value) {
-                if (currSearchValue != value) {
-                  setState(() {
-                    currSearchValue = value;
-                  });
-                }
-              }),
-              const SizedBox(height: 20.0,),
-              Flexible(child: SearchResultList(query: currSearchValue)),
-            ],
-          ),
+          children: [
+            const SizedBox(
+              height: 20.0,
+            ),
+            SearchTextField(onContentChanged: (String value) {
+              if (currSearchValue != value) {
+                setState(() {
+                  currSearchValue = value;
+                });
+              }
+            }),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Flexible(child: SearchResultList(query: currSearchValue)),
+            TextButton(
+                onPressed: () => showAbout(context),
+                child: const Text('About')),
+          ],
+        ),
       ),
     );
   }
